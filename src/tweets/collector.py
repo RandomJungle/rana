@@ -10,16 +10,24 @@ def test():
                   twitter_access_token,
                   twitter_access_token_secret)
 
+    api_url = 'https://api.twitter.com/1.1/tweets/search/fullarchive/development.json'
+    constructed_url = api.construct_api_url(api_url, q='réflexion faite')
+    minimal_url = 'search/fullarchive/development'
+
+
     latitude_paris = 48.8534
     longitude_paris = 2.3488
     radius = "50km"
     geocode = f"{latitude_paris},{longitude_paris},{radius}"
     language = "fr"
 
-    results = api.search(q=add_filter_to_query("élite"),
-                         langg=language,
-                         result_type="mixed",
-                         geocode=geocode)
+    #results = api.search(q=add_filter_to_query("élite"),
+    #                     langg=language,
+    #                     result_type="mixed",
+    #                     geocode=geocode)
+
+    results = api.request(endpoint=minimal_url)
+
     for result in results.get('statuses'):
         print(result.get('text'))
 
